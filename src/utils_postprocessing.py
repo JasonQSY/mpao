@@ -155,7 +155,7 @@ def convert_camera_to_habitat(rotation, position, point):
 
 def convert_habitat_3d_to_pixel_coord(rotation, position, point, depth, x, y, z, hfov=1.5707963267948966, W=1920, threshold=0.03):
     pointcloud = np.stack([x, y, z], axis=-1)
-point_mask = np.ones((1920, 1920, 3)) * point
+    point_mask = np.ones((1920, 1920, 3)) * point
     norm_ = np.linalg.norm(pointcloud - point_mask, axis=-1)
     if np.min(norm_) < threshold:
         return np.unravel_index(np.argmin(norm_), norm_.shape)

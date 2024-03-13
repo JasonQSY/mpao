@@ -92,7 +92,7 @@ def post_processing(json_filename, split):
 
     # scene name
     scene_name = args.scene_name
-    scenes_dict = np.load(f'{args.path_to_scenes_dict}scenes_dict.npy', allow_pickle=True).item()
+    scenes_dict = np.load(f'{args.path_to_scenes_dict}/scenes_dict.npy', allow_pickle=True).item()
     base_position = scenes_dict[scene_name]['base_position']
 
     np.save(f'dataset/{split}/{scene_name}.npy', [])
@@ -199,11 +199,12 @@ def post_processing(json_filename, split):
                 new_dict['handle_3d'], new_dict['handle_2d'] = check_for_handle(img_data['response']['annotations'], mask, x, y, z, only_one=True)
 
             data_dict.append(new_dict)
-	    np.save(f'dataset/{split}/{scene_name}.npy', data_dict)
+            np.save(f'dataset/{split}/{scene_name}.npy', data_dict)
             count += 1
 
 
-train_val_test = np.load('./../misc_data/train_val_test_split.npy', allow_pickle=True).item()
+train_val_test = np.load('./train_val_test_split.npy', allow_pickle=True).item()
+# breakpoint()
 if args.scene_name in train_val_test['train']:
     split = 'train'
 elif args.scene_name in train_val_test['val']:
